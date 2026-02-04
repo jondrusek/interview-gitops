@@ -1,0 +1,36 @@
+name: Promote to Prod
+
+on:
+  workflow_run:
+    workflows: ["Promote to Test"]
+    types:
+      - completed
+
+jobs:
+  approval:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: peter-evans/wait-for-approval@v3
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          approvers: jondrusek-macu
+
+  promote:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    needs: approval
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update ArgoCD app to prod
+        run: |
+          sed -i 's|path: manifests/.*|path: manifests/prod|' argocd-app.yaml
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add argocd-app.yaml
+          git commit -m "Promote to prod environment"
+          git push
