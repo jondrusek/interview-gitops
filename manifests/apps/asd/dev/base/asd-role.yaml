@@ -1,0 +1,27 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: asd-role
+  namespace: asd
+rules:
+- apiGroups: ["", "extensions", "apps"] # "" indicates the core API group
+  resources: ["pods", "services", "deployments", "configmaps", "secrets"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["batch"]
+  resources: ["jobs", "cronjobs"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: asd-role-binding
+  namespace: asd
+subjects:
+- kind: User
+  name: 
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: asd-role
+  apiGroup: rbac.authorization.k8s.io
