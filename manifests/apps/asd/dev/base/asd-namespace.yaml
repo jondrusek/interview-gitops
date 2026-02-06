@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: asd
+  labels:
+    environment: dev
+    team: backend
