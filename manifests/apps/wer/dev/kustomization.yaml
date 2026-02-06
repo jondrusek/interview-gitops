@@ -1,0 +1,6 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base/wer-namespace.yaml
+  - ../../base/wer-resource-quota.yaml
+  - ../../base/wer-role.yaml
