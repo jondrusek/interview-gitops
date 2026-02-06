@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
         - name: sample-app
-          image: ghcr.io/jondrusek/interview-exercises:3627c68b8c0326474390f7578368e748044a575e
+          image: ghcr.io/jondrusek/interview-exercises:d1643157783103e9e4e7ac71d2f5e091fdc320d2
