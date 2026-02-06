@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ccc
+  annotations:
+    github.com/project-slug: ccc
+spec:
+  type: microservice
+  owner: guest
+  lifecycle: development
